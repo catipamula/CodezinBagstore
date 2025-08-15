@@ -1,133 +1,116 @@
-/* OrdersPlaced.css */
-
-/* General container */
 .orders-container {
-  max-width: 1000px;
-  margin: 20px auto;
-  padding: 20px;
+  padding: 30px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
+  background-color: #f9f9f9;
 }
 
-/* Page heading */
-.orders-container h2 {
-  text-align: center;
-  font-size: 28px;
-  margin-bottom: 30px;
-  color: #2c3e50;
-}
-
-/* Individual order card */
-.order-card {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-  padding: 20px 25px;
+h2 {
   margin-bottom: 25px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: #222;
+  text-align: center;
+  font-size: 1.8rem;
 }
 
-.order-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+/* Modern card style */
+.order-card-horizontal {
+  display: flex;
+  flex-direction: column; /* stack on small screens */
+  justify-content: space-between;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-/* Order headings */
-.order-card h3 {
-  margin-bottom: 10px;
-  color: #2980b9;
+.order-card-horizontal:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
 }
 
-/* Order details */
-.order-card p {
-  margin: 5px 0;
-  font-size: 15px;
+.order-info {
+  margin-bottom: 15px;
 }
 
-.order-card strong {
-  color: #34495e;
+.order-info h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+  color: #111;
 }
 
-/* Items list */
-.order-card ul {
-  list-style: none;
-  padding-left: 0;
-  margin-top: 10px;
+.order-info p {
+  margin: 3px 0;
+  font-size: 0.95rem;
+  color: #555;
 }
 
-.order-card ul li {
-  background: #ecf0f1;
-  margin-bottom: 6px;
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-size: 14px;
+.order-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 15px;
 }
 
-/* Download button */
+.order-items span {
+  background-color: #eaf1fb;
+  color: #2874f0;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.order-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .download-btn {
-  margin-top: 15px;
-  background: #27ae60;
+  background-color: #2874f0;
   color: #fff;
   border: none;
-  padding: 10px 18px;
-  border-radius: 8px;
-  font-size: 15px;
+  padding: 8px 16px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.2s;
 }
 
 .download-btn:hover {
-  background: #2ecc71;
+  background-color: #0053ba;
+  transform: scale(1.05);
 }
 
-/* Error message */
+/* Error and loading messages */
 .error-message {
-  color: red;
-  font-weight: bold;
+  color: #e74c3c;
   text-align: center;
   margin-top: 20px;
+  font-weight: 500;
 }
 
-/* No orders section */
-.orders-container button {
-  margin-top: 20px;
-  background: #2980b9;
-  color: #fff;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.2s ease;
+p {
+  font-size: 1rem;
 }
 
-.orders-container button:hover {
-  background: #3498db;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .order-card {
-    padding: 15px 20px;
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .order-card-horizontal {
+    flex-direction: row;
+    align-items: center;
   }
 
-  .download-btn {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
+  .order-info {
+    flex: 1;
   }
 
-  .orders-container h2 {
-    font-size: 24px;
-  }
-}
-
-@media (max-width: 480px) {
-  .orders-container {
-    padding: 15px;
+  .order-items {
+    flex: 2;
   }
 
-  .order-card ul li {
-    font-size: 13px;
-    padding: 6px 10px;
+  .order-actions {
+    flex: 1;
   }
 }

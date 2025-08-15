@@ -90,7 +90,7 @@ const Checkout = () => {
       const data = await res.json();
 
       if (res.ok && data.success) {
-        setMessage(`✅ Order #${data.order_id} placed successfully!`);
+        setMessage(`✅ Your Order placed successfully!`);
         
         // Clear cart after successful order - try different endpoint patterns
         try {

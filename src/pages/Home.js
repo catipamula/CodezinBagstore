@@ -7,6 +7,7 @@ const Home = ({ updateCart, cartCount, setCartCount }) => {
   const [products, setProducts] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [sortOption, setSortOption] = useState("default");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     loadProducts();
@@ -20,14 +21,11 @@ const Home = ({ updateCart, cartCount, setCartCount }) => {
   const addToCartHandler = async (productId) => {
     const token = localStorage.getItem("token");
     if (!token) {
-      alert("❌ Please login to add items to cart.");
+      console.log("❌ Please login to add items to cart.");
       return;
     }
 
     try {
-      console.log("Adding product to cart:", productId); // Debug log
-      
-      // Try different cart endpoint patterns
       const res = await fetch("http://127.0.0.1:8000/api/cart/", {
         method: "POST",
         headers: {
@@ -38,48 +36,37 @@ const Home = ({ updateCart, cartCount, setCartCount }) => {
       });
 
       const data = await res.json();
-      console.log("Add to cart response:", data); // Debug log
-      
+
       if (res.ok) {
-        alert("✅ Product added to cart successfully!");
-        
-        // Fetch updated cart data
         const cartRes = await fetch("http://127.0.0.1:8000/api/cart/", {
-          headers: {
-            Authorization: `Token ${token}`,
-          },
+          headers: { Authorization: `Token ${token}` },
         });
         const cartData = await cartRes.json();
-        console.log("Updated cart data:", cartData); // Debug log
-        
-        if (cartRes.ok) {
-          // Handle different possible cart data structures
-          let processedCartData = [];
-          if (cartData.cart) {
-            processedCartData = cartData.cart;
-          } else if (cartData.items) {
-            processedCartData = cartData.items;
-          } else if (Array.isArray(cartData)) {
-            processedCartData = cartData;
-          } else if (cartData.results) {
-            processedCartData = cartData.results;
-          }
-          
-          console.log("Processed cart data for update:", processedCartData); // Debug log
-          updateCart(processedCartData);
-          setCartCount(processedCartData.length);
-        }
+        let processedCartData = [];
+
+        if (cartData.cart) processedCartData = cartData.cart;
+        else if (cartData.items) processedCartData = cartData.items;
+        else if (Array.isArray(cartData)) processedCartData = cartData;
+        else if (cartData.results) processedCartData = cartData.results;
+
+        updateCart(processedCartData);
+        setCartCount(processedCartData.length);
+        console.log("✅ Product added to cart successfully!");
       } else {
-        alert(`❌ Failed to add product: ${data.error || data.message || "Unknown error"}`);
+        console.log(`❌ Failed to add product: ${data.error || data.message || "Unknown error"}`);
       }
     } catch (err) {
       console.error("Error adding to cart:", err);
-      alert("❌ An error occurred. Please try again.");
     }
   };
 
   const filteredProducts = products
-    .filter(p => categoryFilter === "all" ? true : p.category === categoryFilter)
+    .filter((p) =>
+      categoryFilter === "all" ? true : p.category === categoryFilter
+    )
+    .filter((p) =>
+      p.name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
     .sort((a, b) => {
       if (sortOption === "price_low") return a.price - b.price;
       if (sortOption === "price_high") return b.price - a.price;
@@ -88,27 +75,49 @@ const Home = ({ updateCart, cartCount, setCartCount }) => {
 
   return (
     <div className="home-container">
-      <div className="filters">
-        <select onChange={e => setCategoryFilter(e.target.value)}>
-          <option value="all">All Categories</option>
-          <option value="backpack">Backpacks</option>
-          <option value="handbag">Handbags</option>
-          <option value="wallet">Wallets</option>
-        </select>
-        <select onChange={e => setSortOption(e.target.value)}>
-          <option value="default">Default</option>
-          <option value="price_low">Price: Low to High</option>
-          <option value="price_high">Price: High to Low</option>
-        </select>
+      <div className="search-filter">
+        <input
+          type="text"
+          placeholder="Search for products..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-bar"
+        />
+        <div className="compact-filters">
+          <select
+            onChange={(e) => setCategoryFilter(e.target.value)}
+            value={categoryFilter}
+            className="compact-select"
+          >
+            <option value="all">All Categories</option>
+            <option value="backpack">Backpacks</option>
+            <option value="handbag">Handbags</option>
+            <option value="wallet">Wallets</option>
+          </select>
+          <select
+            onChange={(e) => setSortOption(e.target.value)}
+            value={sortOption}
+            className="compact-select"
+          >
+            <option value="default">Sort By</option>
+            <option value="price_low">Price: Low to High</option>
+            <option value="price_high">Price: High to Low</option>
+          </select>
+        </div>
       </div>
+
       <div className="products-grid">
-        {filteredProducts.map(product => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            addToCartHandler={addToCartHandler}
-          />
-        ))}
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              addToCartHandler={addToCartHandler}
+            />
+          ))
+        ) : (
+          <p>No products found.</p>
+        )}
       </div>
     </div>
   );

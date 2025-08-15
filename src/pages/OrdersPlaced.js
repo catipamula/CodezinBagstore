@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable"; // ✅ correct import
+import autoTable from "jspdf-autotable";
 import "./OrdersPlaced.css";
-import logo from "../assets/shopping-bag.png"; // replace with your logo path
+import logo from "../assets/shopping-bag.png";
 
 const OrdersPlaced = () => {
   const [orders, setOrders] = useState([]);
@@ -30,7 +30,6 @@ const OrdersPlaced = () => {
         });
 
         const data = await res.json();
-
         if (res.ok) {
           setOrders(data.orders || []);
         } else {
@@ -49,19 +48,15 @@ const OrdersPlaced = () => {
 
   const downloadPDF = (order) => {
     const doc = new jsPDF();
-
     const img = new Image();
     img.src = logo;
     img.onload = () => {
-      doc.addImage(img, "PNG", 10, 10, 50, 15);
-
-      // Company Name & Invoice title
+      doc.addImage(img, "PNG", 10, 10, 20, 15);
       doc.setFontSize(18);
       doc.text("Bag Store", 70, 15);
       doc.setFontSize(14);
       doc.text(`Invoice - Order #${order.id}`, 70, 25);
 
-      // Customer Info
       doc.setFontSize(12);
       doc.text(`Name: ${order.customer_name}`, 10, 35);
       doc.text(`Email: ${order.customer_email}`, 10, 42);
@@ -69,7 +64,6 @@ const OrdersPlaced = () => {
       doc.text(`Payment Method: ${order.payment_method}`, 10, 56);
       doc.text(`Total: ₹${order.total}`, 10, 63);
 
-      // Table for products (name + quantity only)
       const tableData = order.order_items.map((item) => [
         item.product_name,
         item.quantity,
@@ -84,7 +78,6 @@ const OrdersPlaced = () => {
         alternateRowStyles: { fillColor: [240, 240, 240] },
       });
 
-      // Footer
       const finalY = doc.lastAutoTable?.finalY || 70;
       doc.setFontSize(12);
       doc.text("Thank you for shopping with Bag Store!", 10, finalY + 20);
@@ -108,39 +101,30 @@ const OrdersPlaced = () => {
     <div className="orders-container">
       <h2>Your Orders</h2>
       {orders.map((order) => (
-        <div key={order.id} className="order-card">
-          <h3>Order #{order.id}</h3>
-          <p>
-            <strong>Name:</strong> {order.customer_name}
-          </p>
-          <p>
-            <strong>Email:</strong> {order.customer_email}
-          </p>
-          <p>
-            <strong>Address:</strong> {order.customer_address}
-          </p>
-          <p>
-            <strong>Payment:</strong> {order.payment_method}
-          </p>
-          <p>
-            <strong>Total:</strong> ₹{order.total}
-          </p>
+        <div key={order.id} className="order-card-horizontal">
+          <div className="order-info">
+            <h3>Order #{order.id}</h3>
+            <p>{order.customer_name}</p>
+            <p>{order.payment_method}</p>
+            <p>Total: ₹{order.total}</p>
+          </div>
 
-          <h4>Items:</h4>
-          <ul>
+          <div className="order-items">
             {order.order_items.map((item) => (
-              <li key={item.id}>
+              <span key={item.id}>
                 {item.quantity} x {item.product_name}
-              </li>
+              </span>
             ))}
-          </ul>
+          </div>
 
-          <button
-            className="download-btn"
-            onClick={() => downloadPDF(order)}
-          >
-            Download Invoice (PDF)
-          </button>
+          <div className="order-actions">
+            <button
+              className="download-btn"
+              onClick={() => downloadPDF(order)}
+            >
+              Download Invoice
+            </button>
+          </div>
         </div>
       ))}
     </div>

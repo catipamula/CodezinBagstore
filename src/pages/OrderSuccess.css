@@ -1,98 +1,131 @@
-.order-success {
-  padding: 2rem;
-  text-align: center;
-  min-height: 60vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: Arial, sans-serif;
 }
 
-.success-content {
-  max-width: 600px;
-  padding: 2rem;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.success-content h2 {
-  color: #2ecc71;
-  margin-bottom: 1rem;
-  font-size: 1.8rem;
-}
-
-.success-content p {
-  color: #666;
-  margin-bottom: 2rem;
-  font-size: 1.1rem;
-}
-
-.success-actions {
+.order-success-fullscreen {
+  height: 100vh;
+  width: 100vw;
+  background-color: #4CAF50;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  justify-content: center;
   align-items: center;
-}
-
-.success-actions a {
-  display: inline-block;
-  padding: 0.8rem 1.5rem;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  min-width: 150px;
-}
-
-.btn-primary {
-  background: linear-gradient(45deg, #2ecc71, #27ae60);
+  overflow: hidden;
   color: white;
+  text-align: center;
+  position: relative;
 }
 
-.btn-primary:hover {
-  background: linear-gradient(45deg, #27ae60, #2ecc71);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+/* Confetti */
+#confetti {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
 }
 
-.btn-secondary {
-  background: linear-gradient(45deg, #3498db, #2980b9);
-  color: white;
+.confetti-piece {
+  position: absolute;
+  width: 6px;
+  height: 1px;
+  opacity: 0.8;
+  animation: fall 3s linear infinite;
+  border-radius: 50%;
 }
 
-.btn-secondary:hover {
-  background: linear-gradient(45deg, #2980b9, #3498db);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+@keyframes fall {
+  0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
 }
 
-.btn-home {
-  background: linear-gradient(45deg, #f39c12, #e67e22);
-  color: white;
+/* Checkmark wrapper */
+.checkmark-wrapper {
+  margin-bottom: 30px;
 }
 
-.btn-home:hover {
-  background: linear-gradient(45deg, #e67e22, #f39c12);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(243, 156, 18, 0.3);
+.checkmark-circle {
+  width: 100px;
+  height: 100px;
+  position: relative;
 }
 
-@media (max-width: 768px) {
-  .success-content {
-    margin: 1rem;
-    padding: 1.5rem;
-  }
-  
-  .success-content h2 {
-    font-size: 1.5rem;
-  }
-  
-  .success-actions {
-    gap: 0.8rem;
-  }
-  
-  .success-actions a {
-    min-width: 120px;
-    padding: 0.7rem 1.2rem;
-  }
+.checkmark-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  stroke-width: 5;
+  stroke: white;
+  stroke-miterlimit: 10;
+  transform-origin: 50% 50%;
+  animation: tickBounce 0.6s ease-out 1s forwards;
+  /* remove box-shadow */
+}
+
+.checkmark-circle-path {
+  stroke: rgba(255,255,255,0.2);
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+}
+
+.checkmark-tick {
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  stroke-width: 5;
+  stroke-linecap: round;
+  animation: drawTick 0.4s 0.6s ease-out forwards;
+}
+
+@keyframes drawCircle {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes drawTick {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Text fade-in */
+h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in 1s forwards;
+}
+
+p {
+  font-size: 1rem;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in 1.2s forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* Existing styles remain the same */
+
+/* Add this to the SVG checkmark */
+.checkmark-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  stroke-width: 5;
+  stroke: white;
+  stroke-miterlimit: 10;
+  box-shadow: 0 0 10px rgba(255,255,255,0.3);
+  transform-origin: 50% 50%;
+  animation: tickBounce 0.6s ease-out 1s forwards;
+}
+
+/* Bounce animation */
+@keyframes tickBounce {
+  0% { transform: scale(0); }
+  60% { transform: scale(1.2); }
+  80% { transform: scale(0.95); }
+  100% { transform: scale(1); }
 }
