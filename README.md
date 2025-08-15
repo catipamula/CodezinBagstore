@@ -1,70 +1,138 @@
-# Getting Started with Create React App
+# 🛒 E-Commerce Appliances Store
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![React](https://img.shields.io/badge/React-17.0.2-blue?logo=react) ![Django](https://img.shields.io/badge/Django-4.2-green?logo=django) ![CSS](https://img.shields.io/badge/CSS-3-blue) ![SQLite](https://img.shields.io/badge/Database-SQLite-lightgrey)
 
-## Available Scripts
 
-In the project directory, you can run:
+## **Project Overview**
 
-### `npm start`
+This is a full-stack **e-commerce web application for appliances**, allowing users to:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* Browse, search, and filter home and kitchen appliances
+* Add products to the cart with real-time updates
+* See promotional banners with **5–10% OFF discounts**
+* Experience a **responsive, modern UI**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## **Technologies Used**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* **Frontend:** React.js, HTML, CSS
+* **Backend:** Django REST Framework
+* **Database:** SQLite/MySQL
+* **APIs:** RESTful APIs for products and cart
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## **Setup Instructions**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### **Backend Setup (Django)**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+git clone <your-repo-url>
+cd <your-project-folder>
+python -m venv env      # Create virtual environment
+# Activate environment
+# Windows:
+env\Scripts\activate
+# Linux/Mac:
+source env/bin/activate
+pip install -r requirements.txt   # Install dependencies
+python manage.py migrate           # Run migrations
+python manage.py runserver         # Start backend server
+```
 
-### `npm run eject`
+Backend runs at: `http://127.0.0.1:8000/`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### **Frontend Setup (React)**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+cd frontend
+npm install        # Install dependencies
+npm start          # Start frontend server
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Frontend runs at: `http://localhost:3000/`
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## **Project Structure**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+/frontend
+  ├── src
+      ├── components
+      ├── pages
+      ├── api
+      └── Home.css
+/backend
+  ├── manage.py
+  ├── app
+      ├── models.py
+      ├── views.py
+      └── urls.py
+      |_requirements.txt 
+```
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## **Features**
 
-### Analyzing the Bundle Size
+* 🏷 Browse products by **category** and **price range**
+* 🔍 Dynamic **search functionality**
+* 🛒 **Add-to-cart** with real-time updates
+* 🎯 **Promotional banners** with discount badges
+* 📱 Fully **responsive layout** for mobile and desktop
+* ✨ Smooth **hover effects** on buttons and cards
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## **Screenshots**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### **1. Homepage**
 
-### Advanced Configuration
+![Homepage Screenshot](screenshots/homepage.png)
+![Homepage2 Screenshot](screenshots/homepage2.png)
+![Homepage3 Screenshot](screenshots/homepage3.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## **Authentication**
+![Authentication Screenshot](screenshots/login.png)
+![Authentication Screenshot](screenshots/register.png)
 
-### Deployment
+### **2. Product Listing**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+![Product Listing Screenshot](screenshots/products.png)
 
-### `npm run build` fails to minify
+### **3. Cart Page**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Cart Screenshot](screenshots/cart.png)
+
+### **4. checkout Page**
+
+![checkout Screenshot](screenshots/checkout.png)
+
+### **5. creditcard  Page**
+
+![credit Card Screenshot](screenshots/card.png)
+
+### **5. paymentsuccess Page**
+
+![paymentsuccess Screenshot](screenshots/paymentsuccess.png)
+
+### **5. order Page**
+
+![order page Screenshot](screenshots/order.png)
+
+
+### **5. invoice Page**
+
+![invoice page Screenshot](screenshots/invoice.png)
+
+## **Usage**
+
+1. Open frontend: `http://localhost:3000/`
+2. Browse products or use **search/filter options**
+3. Click “Shop Now” or “Explore Deals” banners
+4. Add products to cart and view items
+
